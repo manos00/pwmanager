@@ -1,6 +1,3 @@
-origin/main
-
 *.exe
 prev
 __pycache__
-
