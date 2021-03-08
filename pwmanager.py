@@ -190,6 +190,7 @@ def AddPw():
             encrypt(pw_path, key)
             MainMenu()
 
+# this might seem a little confusing as i tried to make a method to edit the passwords but it didnt work so i just made it open notepad
 
 def edit():
     decrypt(pw_path, key)
