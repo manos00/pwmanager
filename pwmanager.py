@@ -85,9 +85,7 @@ def CreatePath():
 
 
 def help():
-    decrypt(pw_path, key)
     help = open(appdata + '/python/help.txt').read()
-    encrypt(pw_path, key)
     return help
 
 
