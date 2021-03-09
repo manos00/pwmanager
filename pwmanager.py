@@ -85,7 +85,7 @@ def CreatePath():
 
 
 def help():
-    help = open(appdata + '/python/help.txt').read()
+    help = open(appdata + '/pwmanager/help.txt').read()
     return help
 
 
