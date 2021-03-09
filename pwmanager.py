@@ -42,15 +42,21 @@ def master_password():
         try:
             os.mkdir(appdata + '/pwmanager')
             with open(master_path, 'w') as f:
-                pwin = getpass.getpass('Create master password or (q)uit: ')
+                pwin = input('Create master password or (q)uit: ')
                 f.write(pwin)
                 print('\nWelcome to PWMANAGER v0.0.1!')
                 f.close
+            with open(appdata + '/pwmanager/help.txt', 'w') as f:
+                f.write("there is no help")
+                f.close()
         except FileExistsError:
             with open(master_path, 'w') as f:
-                pwin = getpass.getpass('Create master password or (q)uit: ')
+                pwin = input('Create master password or (q)uit: ')
                 f.write(pwin)
-                print('\nWelcome to PWMANAGER v0.0.1!')
+            with open(appdata + '/pwmanager/help.txt', 'w') as f:
+                f.write("there is no help")
+                f.close()
+            print('\nWelcome to PWMANAGER v0.0.1!')
 
 
 def encrypt(filename, key):
