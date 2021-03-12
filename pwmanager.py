@@ -3,6 +3,7 @@ from cryptography.fernet import Fernet
 import clipboard
 import random
 import getpass
+import string
 
 
 appdata = os.environ.get('AppData')
@@ -163,13 +164,42 @@ def AddPw():
             username = input("Enter username: ")
             passwordin = input("Enter password: ")
             if passwordin == 'random':
-                chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!?.:,_# '
-                len = int(input('Length of password:'))
+                chars = string.digits + '!@#$%^&*()'
+                length = int(input('Length of password:'))
+                total = length
                 password = ''
-                for i in range(len):
+                for i in range(length-2):
                     password += random.choice(chars)
+                    total -= 1
+                counter = len(string.ascii_letters)
+                for letter in string.ascii_letters:
+                    counter -= 1
+                    if letter in password:
+                        break
+                    elif counter == 1:
+                        password += random.choice(string.ascii_letters)
+                        total -= 1
+                counter = len(string.ascii_letters)
+                for digit in string.digits:
+                    counter -= 1
+                    if digit in password:
+                        break
+                    elif counter == 1:
+                        password += random.choice(string.digits)
+                        total -= 1
+                counter = len('!@#$%^&*()')
+                for char in '!@#$%^&*()':
+                    counter -= 1
+                    if char in password:
+                        break
+                    elif counter == 1:
+                        password += random.choice('!@#$%^&*()')
+                        total -= 1
+                while total != 0:
+                    password += random.choice(chars)
+                    total -= 1
                 print()
-                print(f'Your new password is {password}')
+                print(f'Your new password is "{password}".')
                 clipboard.copy(password)
                 print()
                 srvice = "Service: " + ServiceIn + "\n"
@@ -195,6 +225,7 @@ def AddPw():
             MainMenu()
 
 # this might seem a little confusing as i tried to make a method to edit the passwords but it didnt work so i just made it open notepad
+
 
 def edit():
     decrypt(pw_path, key)
