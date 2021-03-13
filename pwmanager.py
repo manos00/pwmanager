@@ -166,6 +166,10 @@ def AddPw():
             if passwordin == 'random':
                 chars = string.digits + '!@#$%^&*()'
                 length = int(input('Length of password:'))
+                if length < 3:
+                    print('Password must at least be 3 characters long!')
+                    encrypt(pw_path, key)
+                    MainMenu()
                 total = length
                 password = ''
                 for i in range(length-2):
