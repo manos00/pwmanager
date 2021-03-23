@@ -3,3 +3,5 @@ prev
 __pycache__
 randompwtest.py
 padlock.ico
+test*
+guitest
