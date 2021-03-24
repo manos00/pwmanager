@@ -12,7 +12,6 @@ key_path = appdata + '/pwmanager/key.key'
 master_path = appdata + '/pwmanager/master.file'
 counter = 0
 counter2 = 0
-tries = 0
 
 
 def write_key():
@@ -29,30 +28,34 @@ def load_key():
 
 
 def master_password():
-    global tries
+    tries = 0
+    done = False
     if os.path.exists(master_path):
-        if tries == 0:
-            pwin = getpass.getpass('Enter master password or (q)uit: ')
-            with open(master_path, 'r') as f:
-                mpw = f.read()
-                if pwin == mpw:
-                    print('\nWelcome to PWMANAGER v0.0.1!')
-                elif pwin == "q":
-                    quit()
-                else:
-                    tries += 1
-                    master_password()
-        if tries > 0:
-            pwin = getpass.getpass('Password wrong! Try agian: ')
-            with open(master_path, 'r') as f:
-                mpw = f.read()
-                if pwin == mpw:
-                    print('\nWelcome to PWMANAGER v0.0.1!')
-                    tries = 0
-                elif pwin == "q":
-                    quit()
-                else:
-                    master_password()
+        while not done:
+            if tries == 0:
+                pwin = getpass.getpass('Enter master password or (q)uit: ')
+                with open(master_path, 'r') as f:
+                    mpw = f.read()
+                    if pwin == mpw:
+                        print('\nWelcome to PWMANAGER v0.0.1!')
+                        done = True
+                    elif pwin == "q":
+                        done = True
+                        quit()
+                    else:
+                        tries += 1
+            elif tries > 0:
+                pwin = getpass.getpass('Password wrong! Try agian: ')
+                with open(master_path, 'r') as f:
+                    mpw = f.read()
+                    if pwin == mpw:
+                        print('\nWelcome to PWMANAGER v0.0.1!')
+                        done = True
+                    elif pwin == "q":
+                        done = True
+                        quit()
+                    else:
+                        tries += 1
     else:
         try:
             os.mkdir(appdata + '/pwmanager')
