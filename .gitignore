@@ -1,7 +1,5 @@
 *.exe
 prev
 __pycache__
-randompwtest.py
-padlock.ico
+*.ico
 test*
-guitest
