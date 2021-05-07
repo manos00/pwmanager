@@ -39,7 +39,6 @@ def master_password():
                 with open(master_path, 'r') as f:
                     mpw = f.read()
                     sha512obj.update(str.encode(pwin))
-                    print(sha512obj.hexdigest())
                     if sha512obj.hexdigest() == mpw:
                         print('\nWelcome to PWMANAGER v0.0.1!')
                         done = True
@@ -54,7 +53,6 @@ def master_password():
                 with open(master_path, 'r') as f:
                     mpw = f.read()
                     sha512obj.update(str.encode(pwin))
-                    print(sha512obj.hexdigest())
                     if sha512obj.hexdigest() == mpw:
                         print('\nWelcome to PWMANAGER v0.0.1!')
                         done = True
