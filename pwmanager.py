@@ -4,6 +4,7 @@ import clipboard
 import random
 import getpass
 import string
+import hashlib
 
 
 appdata = os.environ.get('AppData')
@@ -33,10 +34,13 @@ def master_password():
     if os.path.exists(master_path):
         while not done:
             if tries == 0:
+                sha512obj = hashlib.sha512()
                 pwin = getpass.getpass('Enter master password or (q)uit: ')
                 with open(master_path, 'r') as f:
                     mpw = f.read()
-                    if pwin == mpw:
+                    sha512obj.update(str.encode(pwin))
+                    print(sha512obj.hexdigest())
+                    if sha512obj.hexdigest() == mpw:
                         print('\nWelcome to PWMANAGER v0.0.1!')
                         done = True
                     elif pwin == "q":
@@ -45,10 +49,13 @@ def master_password():
                     else:
                         tries += 1
             elif tries > 0:
+                sha512obj = hashlib.sha512()
                 pwin = getpass.getpass('Password wrong! Try agian: ')
                 with open(master_path, 'r') as f:
                     mpw = f.read()
-                    if pwin == mpw:
+                    sha512obj.update(str.encode(pwin))
+                    print(sha512obj.hexdigest())
+                    if sha512obj.hexdigest() == mpw:
                         print('\nWelcome to PWMANAGER v0.0.1!')
                         done = True
                     elif pwin == "q":
@@ -58,19 +65,23 @@ def master_password():
                         tries += 1
     else:
         try:
+            sha512obj = hashlib.sha512()
             os.mkdir(appdata + '/pwmanager')
             with open(master_path, 'w') as f:
                 pwin = input('Create master password or (q)uit: ')
-                f.write(pwin)
+                sha512obj.update(str.encode(pwin))
+                f.write(sha512obj.hexdigest())
                 print('\nWelcome to PWMANAGER v0.0.1!')
                 f.close
             with open(appdata + '/pwmanager/help.txt', 'w') as f:
                 f.write("there is no help")
                 f.close()
         except FileExistsError:
+            sha512obj = hashlib.sha512()
             with open(master_path, 'w') as f:
                 pwin = input('Create master password or (q)uit: ')
-                f.write(pwin)
+                sha512obj.update(str.encode(pwin))
+                f.write(sha512obj.hexdigest())
             with open(appdata + '/pwmanager/help.txt', 'w') as f:
                 f.write("there is no help")
                 f.close()
